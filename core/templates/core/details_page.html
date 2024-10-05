@@ -1,0 +1,108 @@
+{% extends "core/base.html" %}
+{% load static %}
+
+{% block title %}
+Details Page |
+{% endblock %}
+
+
+{% block content %}
+
+    <div class="container-fluid">
+
+
+        <div class="desktop-header">
+            <div class="card card-block topnav-left">
+                <div class="card-body d-flex align-items-center">
+                    <div class="d-flex justify-content-between">
+                        <h4 class="text-capitalize">{{ note.title }}</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-sm-12 col-lg-12">
+                <div class="card">
+                    <form method="POST" id="">
+                        {% csrf_token %}
+
+                        <div class="card-header d-flex justify-content-between">
+                            <div class="header-title">
+                                <!-- <h4 class="card-title">{{ note.title }}</h4> -->
+                                <input type="text" name="title" id="newnoteTitle" class="card-title editable form-control-plaintext" value="{{ note.title }}" data-original-value="{{ note.title }}" readonly>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <!-- <p>
+                                {{ note.content }}
+                            </p> -->
+                            <textarea id="newnoteContent" name="content" class="editable form-control-plaintext w-100" rows="12" data-original-value="{{ note.content }}" readonly>{{ note.content }}</textarea>
+                        </div>
+                        <div class="card-body">
+                        <a id="myEditBtn" class="btn btn-success mt-2" onclick="enableEdit()">Edit</a>
+                        <button id="mySaveBtn" class="btn btn-secondary mt-2 d-none" onclick="">Save</button>
+                        <a id="myCancelBtn" class="btn btn-danger mt-2 d-none" onclick="cancelEdit()">Cancel</a>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block script %}
+
+<script>
+    // Function to enable editing
+    function enableEdit() {
+        document.getElementById("newnoteTitle").removeAttribute("readonly");
+        document.getElementById("newnoteContent").removeAttribute("readonly");
+
+        // Change button visibility
+        document.getElementById("myEditBtn").classList.add("d-none");
+        document.getElementById("mySaveBtn").classList.remove("d-none");
+        document.getElementById("myCancelBtn").classList.remove("d-none");
+    }
+
+    // Function to save changes
+    function saveChanges() {
+        document.getElementById("newnoteTitle").setAttribute("readonly", true);
+        document.getElementById("newnoteContent").setAttribute("readonly", true);
+
+        // For now, just logging the changes to the console
+        let title = document.getElementById("noteTitle").value;
+        let content = document.getElementById("noteContent").value;
+        console.log("Saved Title:", title);
+        console.log("Saved Content:", content);
+
+        // Revert button visibility
+        document.getElementById("myEditBtn").classList.remove("d-none");
+        document.getElementById("mySaveBtn").classList.add("d-none");
+        document.getElementById("myCancelBtn").classList.add("d-none");
+    }
+
+    // Function to cancel editing
+    function cancelEdit() {
+        // Reset to previous values (if needed you can store original values and reset them here)
+
+        document.getElementById("newnoteTitle").setAttribute("readonly", true);
+        document.getElementById("newnoteContent").setAttribute("readonly", true);
+
+        // Revert button visibility
+        document.getElementById("myEditBtn").classList.remove("d-none");
+        document.getElementById("mySaveBtn").classList.add("d-none");
+        document.getElementById("myCancelBtn").classList.add("d-none");
+
+        var titleInput = document.getElementById('newnoteTitle');
+        titleInput.value = titleInput.getAttribute('data-original-value');
+        
+        // Reset content textarea
+        var contentTextarea = document.getElementById('newnoteContent');
+        contentTextarea.value = contentTextarea.getAttribute('data-original-value');
+    }
+</script>
+{% endblock %}

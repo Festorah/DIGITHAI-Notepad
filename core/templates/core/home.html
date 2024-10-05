@@ -1,0 +1,361 @@
+{% extends "core/base.html" %}
+{% load static %}
+
+{% block title %}
+Home |
+{% endblock %}
+
+
+{% block content %}
+<div class="container-fluid note-details">
+    <div class="desktop-header">
+        <div class="card card-block topnav-left">
+            <div class="card-body write-card">
+                <div class="d-flex align-items-center justify-content-between">
+                    <div class="iq-note-callapse-menu">
+                        <a class="iq-note-callapse-btn show-note-button" data-toggle="collapse" href="#collapseMenu" role="button" data-extra-toggle="toggle" data-extra-class-show=".hide-note-button" data-extra-class-hide=".show-note-button" aria-expanded="false">
+                            <i class="fa la-pencil-alt pr-2"></i>
+                            Write Your Note
+            
+                        </a>
+                        <span class="hide-note-button d-none">
+                            <i class="las la-folder pr-2"></i>
+                            New Note
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card topnav-right">
+            <div class="card-body card-content-right">
+                <ul class="list-inline m-0 p-0 d-flex align-items-center justify-content-around">
+                    <li class="nav-item nav-icon dropdown">
+                        <a href="#" class="search-toggle dropdown-toggle nav-icon-1" id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="">
+                                <svg width="20" class="svg-icon" id="main-n-01" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                                </svg>
+                            </i>
+                        </a>
+                    </li>
+                    <li class="nav-item nav-icon dropdown pl-3">
+                        <a href="#" class="search-toggle dropdown-toggle nav-icon-1" id="dropdownMenuButton002" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="">
+                                <svg width="20" class="svg-icon" id="main-n-02" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
+                                </svg>
+                            </i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="collapse" id="collapseMenu">
+                <div class="card card-block card-stretch">
+                    <div class="card-body write-card">
+                        <div class="container-fluid collapse-fluid">
+                            <div class="row">
+
+                                <div class="col-md-12 col-lg-12 p-0">
+                                    <div class="card card-transparent card-block card-stretch event-note">
+                                        <div class="card-body px-0 bukmark">
+                                            <form id="noteForm" method="POST">
+                                                {% csrf_token %}
+                                                <div class="form-group col-md-4">
+                                                    <label for="filename">File Name:</label>
+                                                    {{ form.title }}
+                                                </div>
+                                                <div class="form-group pl-3">
+                                                    {{ form.content }}
+                                                </div>
+                                                <div class="col-lg-12 p-0 d-flex justify-content-end">
+                                                    <button class="btn btn-outline-primary" data-extra-toggle="toggle" data-extra-class-show=".show-note-button" data-extra-class-hide=".hide-note-button">Close</button>
+                                                    <button class="btn btn-primary ml-2" data-extra-toggle="toggle" data-extra-class-show=".show-note-button" data-extra-class-hide=".hide-note-button">Save</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-12">
+            <div class="card card-block card-stretch">
+                <div class="card-body custom-notes-space">
+                    <h3 class="">Your Notes</h3>
+                    <div class="iq-tab-content">
+                        <div class="d-flex flex-wrap align-items-top justify-content-between">
+                            <ul class="d-flex nav nav-pills text-center note-tab mb-3" id="note-pills-tab" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link home active show" data-toggle="pill" data-init="note" href="#note1" role="tab" aria-selected="false">All</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link home" data-toggle="pill" data-init="pin-note" href="#note1" role="tab" aria-selected="false">Pin Notes</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link home" data-toggle="pill" data-init="fav-note" href="#note1" role="tab" aria-selected="false">Favourite Notes</a>
+                                </li>
+                            </ul>
+                            <div class="media align-items-top iq-grid">
+                                <div class="view-btn rounded body-bg btn-dropdown filter-btn mr-3">
+                                    <div class="dropdown">
+                                        <span class="dropdown-toggle cursor-pointer" id="dropdownMenuButton003" data-toggle="dropdown">
+                                            <i class="las la-filter font-size-20"></i>
+                                        </span>
+                                        <div class="dropdown-menu dropdown-menu-right border-none" aria-labelledby="dropdownMenuButton003">
+                                            <form method="GET" action="{% url 'home' %}" id="searchForm">
+                                                <div class="dropdown-item mb-3">
+                                                    <div class="d-flex align-items-center justify-content-between">
+                                                        <h6 class="mr-4">
+                                                            <i class="las la-paste mr-3"></i>
+                                                            Contains
+                                                        </h6>
+                                                        <div class="form-group mb-0">
+                                                            <input type="text" class="form-control" name="search_note" placeholder="Search">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="dropdown-item mb-2">
+                                                    <div class="d-flex align-items-center justify-content-between">
+                                                        <h6 class="mr-4">
+                                                            <i class="las la-calendar mr-3"></i>
+                                                            Created
+                                                        </h6>
+                                                        <div class="form-group mb-0">
+                                                            <select name="type" class="form-select dropdown-toggle" data-style="py-0">
+                                                                <option value="today">Today</option>
+                                                                <option value="yest">Yesterday</option>
+                                                                <option value="last-week">Last Week</option>
+                                                                <option value="last-month">Last Month</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <button type="submit" id="search" class="btn btn-primary mt-3 ml-3">Search</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="list-grid-toggle cursor-pointer">
+                                    <span class="icon active i-grid rounded">
+                                        <i class="ri-layout-grid-line font-size-20"></i>
+                                    </span>
+                                    <span class="icon active i-list rounded">
+                                        <i class="ri-list-check font-size-20"></i>
+                                    </span>
+                                    <span class="label label-list">List</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="note-content tab-content">
+                            <div id="note1" class="tab-pane fade active show">
+                                <div class="icon active animate__animated animate__fadeIn i-grid">
+                                    <div class="row">
+                                        {% for note in notes %}
+                                        {% cycle 'info' 'warning' 'danger' 'purple' 'primary' 'success' as color silent %}
+                                        <div class="col-lg-4 col-md-6">
+                                            <div class="card card-block card-stretch card-height card-bottom-border-{{ color }} note-detail">
+                                                <div class="card-header d-flex justify-content-between pb-1">
+                                                    <div class="icon iq-icon-box-2 icon-border-{{ color }} rounded">
+                                                        <i class="fa la-sticky-note"></i>
+                                                    </div>
+                                                    <div class="card-header-toolbar d-flex align-items-center">
+                                                        <div class="dropdown">
+                                                            <span class="dropdown-toggle dropdown-bg" id="note-dropdownMenuButton4" data-toggle="dropdown" aria-expanded="false" role="button">
+                                                                <i class="las la-ellipsis-h"></i>
+                                                            </span>
+                                                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="note-dropdownMenuButton4">
+                                                                <a class="dropdown-item" data-extra-toggle="delete" data-closest-elem=".card" href="#">
+                                                                    <i class="fa la-trash-alt mr-3"></i>
+                                                                    Delete
+                                                                </a>
+                                                                <!-- Hidden delete form -->
+                                                                <form method="POST" action="{% url 'note_delete' note.id %}" class="delete-form" style="display: none;">
+                                                                    {% csrf_token %}
+                                                                    <input type="hidden" name="note_id" value="{{ note.id }}">
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="card-body rounded">
+                                                  <a href="{% url 'note_detail' note.pk %}" class="">
+                                                    <h4 class="card-title">{{ note.title }}</h4>
+                                                    <p class="mb-3 card-description short">{{ note.content }}</p>
+                                                  </a>
+                                                </div>
+                                                <div class="card-footer">
+                                                    <div class="d-flex align-items-center justify-content-between note-text note-text-{{ color }}">
+                                                        <a href="#" class="">
+                                                            <i class="lar la-heart mr-2 font-size-20"></i>
+                                                        </a>
+                                                        <a href="#" class=""data-extra-toggle="delete" data-closest-elem=".card" href="#">
+                                                            <i class="fa la-trash-alt mr-2 font-size-20"></i>
+                                                        </a>
+                                                        <!-- Hidden delete form -->
+                                                        <form method="POST" action="{% url 'note_delete' note.id %}" class="delete-form" style="display: none;">
+                                                            {% csrf_token %}
+                                                            <input type="hidden" name="note_id" value="{{ note.id }}">
+                                                        </form>
+                                                        <a href="#" class="">
+                                                            <i class="fa la-calendar mr-2 font-size-20"></i>
+                                                            {{ note.created_at|date:"D d M Y" }}
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {% empty %}
+                                        <h4 class="align-items-center">No notes here yet. Start by creating something amazing!</h3>
+                                        {% endfor %}
+                                    </div>
+                                    <div class="card-body">
+                                       {% if is_paginated %}
+                                       <nav aria-label="Page navigation">
+                                           <ul class="pagination">
+                                               {% if page_obj.has_previous %}
+                                                   <li class="page-item">
+                                                       <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                                                           <span aria-hidden="true">&laquo;</span>
+                                                       </a>
+                                                   </li>
+                                               {% else %}
+                                                   <li class="page-item disabled">
+                                                       <span class="page-link" aria-hidden="true">&laquo;</span>
+                                                   </li>
+                                               {% endif %}
+                                   
+                                               {% for page_num in paginator.page_range %}
+                                                   {% if page_obj.number == page_num %}
+                                                       <li class="page-item active"><span class="page-link">{{ page_num }}</span></li>
+                                                   {% else %}
+                                                       <li class="page-item"><a class="page-link" href="?page={{ page_num }}">{{ page_num }}</a></li>
+                                                   {% endif %}
+                                               {% endfor %}
+                                   
+                                               {% if page_obj.has_next %}
+                                                   <li class="page-item">
+                                                       <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+                                                           <span aria-hidden="true">&raquo;</span>
+                                                       </a>
+                                                   </li>
+                                               {% else %}
+                                                   <li class="page-item disabled">
+                                                       <span class="page-link" aria-hidden="true">&raquo;</span>
+                                                   </li>
+                                               {% endif %}
+                                           </ul>
+                                       </nav>
+                                   {% endif %}
+                                    </div>
+                                </div>
+                                <div class="icon active animate__animated animate__fadeIn i-list">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="table-responsive">
+                                                <table class="table  tbl-server-info">
+                                                    <thead>
+                                                        <tr class="ligth">
+                                                            <th class="w-50" scope="col">Title</th>
+                                                            <th scope="col">Created At</th>
+                                                            <th scope="col">Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {% for note in notes %}
+                                                        <tr>
+                                                            <td>
+                                                                <a href="{% url 'note_detail' note.pk %}" class="">
+                                                                <h4 class="mb-2">{{ note.title }}</h4>
+                                                                <span class="truncated-content">{{ note.content }}</span>
+                                                                </a>
+                                                            </td>
+                                                            <td>{{ note.created_at|date:"D d M Y" }}</td>
+                                                            <td>
+                                                                <div>
+                                                                    <a href="#" class="badge badge-success mr-3" data-toggle="modal" data-target="" data-note-id="">
+                                                                        <i class="las la-pen mr-0"></i>
+                                                                    </a>
+                                                                    <a href="#" class="badge badge-danger" data-extra-toggle="delete" data-closest-elem="tr">
+                                                                        <i class="las la-trash-alt mr-0"></i>
+                                                                    </a>
+                                                                </div>
+
+                                                                <!-- Hidden delete form -->
+                                                                <form method="POST" action="{% url 'note_delete' note.id %}" class="delete-form" style="display: none;">
+                                                                    {% csrf_token %}
+                                                                    <input type="hidden" name="note_id" value="{{ note.id }}">
+                                                                </form>
+                                                            </td>
+                                                        </tr>
+                                                        {% endfor %}
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Page end  -->
+</div>
+<!-- Modal View -->
+<div class="modal fade" id="view-note" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="popup text-left">
+                    <div class="media align-items-top justify-content-between">
+                        <h3 class="mb-3" id="noteTitle"></h3>
+                        <div class="btn-cancel p-0" data-dismiss="modal">
+                            <i class="las la-times"></i>
+                        </div>
+                    </div>
+                    <div class="content create-workform">
+                        <p class="mb-4" id="noteContent"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal Edit -->
+<div class="modal fade" id="edit-note" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="popup text-left">
+                    <form id="editNoteForm" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" id="noteIda">
+                        <div class="form-group col-md-6">
+                            <label for="filename">Title</label>
+                            <input type="text" class="form-control" id="editNoteTitlea" placeholder="Edit title">
+                        </div>
+                        <div class="form-group pl-3">
+                            <textarea id="editNoteContenta" class="form-control" rows="5" placeholder="Edit content"></textarea>
+                        </div>
+                        <div class="col-lg-12 p-0 d-flex justify-content-end">
+                        </div>
+                        <button type="submit" id="saveNoteButton" class="btn btn-primary mt-3">Save Note</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+
