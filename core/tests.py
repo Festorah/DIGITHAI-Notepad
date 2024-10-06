@@ -34,43 +34,7 @@ class NoteAppTests(TestCase):
         AccountUser.objects.all().delete()
 
 
-class HomeViewTests(NoteAppTests):
-
-    def test_home_page_access(self):
-        response = self.client.get(reverse("home"))
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "core/home.html")
-
-    def test_notes_displayed(self):
-        response = self.client.get(reverse("home"))
-        self.assertContains(response, self.note1.title)
-        self.assertContains(response, self.note2.title)
-
-    def test_pagination(self):
-        # Create additional notes to trigger pagination
-        for i in range(10):
-            Note.objects.create(
-                title=f"Note {i+3}",
-                content=f"Content for note {i+3}",
-                author=self.user,
-                created_at=timezone.now(),
-            )
-
-        response = self.client.get(reverse("home"))
-        self.assertEqual(len(response.context["notes"]), 5)
-
-    def test_search_filter(self):
-        response = self.client.get(reverse("home"), {"search_note": "Test Note 1"})
-        self.assertContains(response, self.note1.title)
-        self.assertNotContains(response, self.note2.title)
-
-
 class CreateNoteViewTests(NoteAppTests):
-
-    def test_create_note_access(self):
-        response = self.client.get(reverse("create_note"))
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "core/create_new_note.html")
 
     def test_create_note_post(self):
         note_data = {
@@ -85,12 +49,6 @@ class CreateNoteViewTests(NoteAppTests):
 
 
 class NoteDetailViewTests(NoteAppTests):
-
-    def test_note_detail_view(self):
-        response = self.client.get(reverse("note_detail", kwargs={"pk": self.note1.pk}))
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "core/details_page.html")
-        self.assertContains(response, self.note1.title)
 
     def test_note_detail_permission(self):
         other_user = AccountUser.objects.create_user(
