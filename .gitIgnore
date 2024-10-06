@@ -34,7 +34,6 @@ __pycache__/
 
 # Distribution / packaging
 .Python
-env/
 build/
 develop-eggs/
 dist/
@@ -87,9 +86,6 @@ local_settings.py
 venv/
 
 # Environment variables files
-.env
-*.env
-.env.*
 !.env.example
 !.env.docker-compose.example
 !.env.gitlab.example
