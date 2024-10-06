@@ -108,19 +108,6 @@ WSGI_APPLICATION = "digithai_note_app.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-
-# DATABASES = {
-#     "default": {
-#         "ENGINE": os.environ["DB_ENGINE"],
-#         "NAME": os.environ["POSTGRES_DB"],
-#         "USER": os.environ["POSTGRES_USER"],
-#         "PASSWORD": os.environ["POSTGRES_PASSWORD"],
-#         "HOST": os.environ["POSTGRES_HOST"],
-#         "PORT": os.environ["POSTGRES_PORT"],
-#         "CONN_MAX_AGE": int(os.environ["POSTGRES_CONN_MAX_AGE"]),
-#     }
-# }
-
 DATABASES = {
     "default": {
         "ENGINE": config("DB_ENGINE"),
@@ -133,16 +120,6 @@ DATABASES = {
     }
 }
 
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.postgresql",
-#         "NAME": "postgres",
-#         "USER": "postgres",
-#         "PASSWORD": "admin",
-#         "HOST": "db",
-#         "PORT": "5432",
-#     }
-# }
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -179,11 +156,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = "static/"
-
-# This production code might break development mode, so we check whether we're in DEBUG mode
-# if not DEBUG:
-# Tell Django to copy static assets into a path called `staticfiles` (this is specific to Render)
-# STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
 
